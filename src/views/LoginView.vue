@@ -53,7 +53,7 @@
             let spx_fechareplica = '2000-01-01 00:00:00';
             localStorage.setItem('spx_localdata',JSON.stringify(spx_localdata)) 
             localStorage.setItem('spx_fechareplica',JSON.stringify(spx_fechareplica))
-            await router.push('/home')
+            await router.push('/')
         }
         else{
           swal("Problema de Usuario o Password");

@@ -85,10 +85,16 @@
             <div class="collapse" id="layouts">
               <ul class="navbar-nav ps-3">
                 <li>
-                  <a href="#" class="nav-link px-3">
+                  <router-link :to="{ name : 'ofertas' }" class="nav-link px-3">
                     <span class="me-2"><i class="bi bi-bag-fill"></i></span>
                     <span>Ofertas</span>
-                  </a>
+                  </router-link >
+                </li>
+                <li>
+                  <router-link :to="{ name : 'catalogo' }" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-tags-fill"></i></span>
+                    <span>Catalogo</span>
+                  </router-link >
                 </li>
                 <li>
                   <!-- router-link :to="{ name : 'editdata' }" class="nav-link px-3">

@@ -44,11 +44,17 @@
                         Precio: {{ producto.Precio }} <br>
                         Cantidad : {{ $filters.currency(producto.Exinten) }} {{ producto.Unidad }}
                     </small>
-                    <div style="text-align: right;">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button v-if="producto.esoferta == 0" @click="confirmarOferta(producto.CodProd)" type="button" class="btn btn-success">
+                        Oferta
+                        </button>
                         <button type="button" @click="datosEditar(producto)" class="btn btn-warning" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         Editar
                         </button>
+                    </div>
+                    <div v-if="producto.esoferta == 1" style="color: red;text-align: center;">
+                        EN OFERTA
                     </div>
                 </td>
             </tr>
@@ -81,6 +87,7 @@ import { onMounted, ref , inject } from 'vue';
 import { useGlobalStore } from '../store/global'
 import ExistenciasProductosService from '../services/ExistenciasProductos';
 import ProductosService from '../services/ProductosService';
+import OfertasService from '../services/OfertasService';
 
 const swal = inject('$swal')
 
@@ -90,6 +97,9 @@ const todosProductos = ExistenciasProductos.getExistenciasProd();
 
 const ProducServ= new ProductosService()
 const ResponseUpdate = ProducServ.getRespuesta()
+
+const OfertasServ = new OfertasService();
+const respOferta = OfertasServ.getRespuesta();
 
 const datosFiltrados = ref([]);
 const buscarPor = ref('CodProd')
@@ -124,6 +134,28 @@ const buscarDato = () => {
 function datosEditar(producto) {
     editarproducto.value = producto;
 }
+
+const confirmarOferta=((producto)=>{
+    swal.fire({
+        title: "Confirmacion",
+        text: "¿ Desea poner este producto en oferta ?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, poner en oferta"
+        }).then((result) => {
+        if (result.isConfirmed) {
+            OfertasServ.fetchNuevaOferta(store.urlPpal, store.headRequest(),producto);
+            swal.fire({
+            title: respOferta.status,
+            text: respOferta.message,
+            icon: "success"
+            });
+            ExistenciasProductos.fetchExistenciasProd(store.urlPpal, store.headRequest());
+        }
+    });
+})
 
 const actualizarProducto = ( async ()=>{
     await ProducServ.fetchActualizarProducto(store.urlPpal, store.headRequest(),editarproducto.value)

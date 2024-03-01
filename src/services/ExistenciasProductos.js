@@ -14,7 +14,7 @@ class ExistenciasProductosService {
     async fetchExistenciasProd(urlPpal,headerdata){
         try{
             //catalogodeproductos
-            const res = await fetch(urlPpal+'exproductos',{
+            const res = await fetch(urlPpal+'exproductosgerencia',{
                 method : 'GET',
                 headers : headerdata.headers
             })

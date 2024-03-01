@@ -23,5 +23,17 @@ export const useGlobalStore = defineStore('storePpal',{
             }
             return response
         },
+        pictureHeadRequest () {
+            let datoslocales = JSON.parse(localStorage.getItem('spx_localdata'));
+            var response = {
+                headers : {
+                    'Accept' : '*/*',
+                    'Authorization': datoslocales.spx_tok_p,
+                    'firm' : 'de73cceb749cd2321ac5c2f57a9433fe58d3ab25',
+                    'applicant' : datoslocales.spx_nam_p
+                }
+            }
+            return response
+        },
     }
 })

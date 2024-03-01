@@ -2,7 +2,8 @@
     <div v-for="producto in ofertas" :key="producto.CodProd" class="col-md-3 mb-3">
         <div class="card h-100">
             <div class="card-header">{{ producto.CodProd }}</div>
-            <img v-if="producto.ImgProd" width="´100px" :src="'https://catalogohidromack.geincca.com/img/'+producto.imagen" class="card-img-top" alt="...">
+            <img v-if="producto.ImgProd == 1" width="´100px" :src="'https://catalogohidromack.geincca.com/img/'+producto.imagen" class="card-img-top" alt="...">
+            <img v-else width="´100px" :src="'https://catalogohidromack.geincca.com/img/ofrt/'+producto.ImgOfer" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title" style="text-align: right;">{{ $filters.currency(producto.Precio3)  }}</h5>
                 <p class="card-text">{{ producto.Descrip }}</p>

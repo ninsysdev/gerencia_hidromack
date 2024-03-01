@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
   },
   {
-    path : '/home',
+    path : '/',
     name : 'home',
     component: () => import(/* webpackChunkName: "Home" */ '../views/HomeView.vue'),
     meta : {
@@ -46,6 +46,22 @@ const routes = [
       requireAuth : true
     }
   },
+  {
+    path : '/ofertas',
+    name : 'ofertas',
+    component: () => import(/* webpackChunkName: "ofertas" */ '../views/OfertasView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
+  {
+    path : '/catalogo',
+    name : 'catalogo',
+    component: () => import(/* webpackChunkName: "catalogo" */ '../views/CatalogoView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
 ]
 
 const router = createRouter({
@@ -57,7 +73,7 @@ router.beforeEach((to,from,next) => {
   const auth = localStorage.getItem('spx_localdata')
   const needAuth = to.meta.requireAuth
   if(needAuth && !auth){
-    next('/')
+    next('/login')
   }
   else{
     next()
