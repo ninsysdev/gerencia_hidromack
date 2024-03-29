@@ -62,6 +62,46 @@ const routes = [
       requireAuth : true
     }
   },
+  {
+    path : '/pedidocliente',
+    name : 'pedidocliente',
+    component: () => import(/* webpackChunkName: "pedidos" */ '../views/PedidoClienteView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
+  {
+    path : '/pedidosguardados',
+    name : 'pedidosguardados',
+    component: () => import(/* webpackChunkName: "pedidosguardados" */ '../views/PedidosGuardadosView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
+  {
+    path : '/editarpedido/:codigo/:codclie/:nomclie',
+    name : 'editarpedido',
+    component: () => import(/* webpackChunkName: "editarpedido" */ '../views/EditarPedidoView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
+  {
+    path : '/pedidosenviados',
+    name : 'pedidosenviados',
+    component: () => import(/* webpackChunkName: "pedidosenviados" */ '../views/PedidosEnviadosView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
+  {
+    path : '/consultardocumento/:codigo/:nomclie/:codclie/:totalmonto',
+    name : 'consultardocumento',
+    component: () => import(/* webpackChunkName: "consultardocumento" */ '../views/ConsultarDocumentoView.vue'),
+    meta : {
+      requireAuth : true
+    }
+  },
 ]
 
 const router = createRouter({

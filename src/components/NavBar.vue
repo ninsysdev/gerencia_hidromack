@@ -117,6 +117,44 @@
           </li>
           <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
           <li>
+            <a
+              class="nav-link px-3 sidebar-link"
+              data-bs-toggle="collapse"
+              href="#pedidos"
+            >
+              <span class="me-2"><i class="bi bi-cart-fill"></i></span>
+              <span>Pedido</span>
+              <span class="ms-auto">
+                <span class="right-icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </span>
+            </a>
+            <div class="collapse" id="pedidos">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <router-link :to="{ name : 'pedidocliente' }" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-person-circle"></i></span>
+                    <span>Cliente</span>
+                  </router-link >
+                </li>
+                <li>
+                  <router-link :to="{ name : 'pedidosguardados' }" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-cloud-check-fill"></i></span>
+                    <span>Pedidos Guardados</span>
+                  </router-link >
+                </li>
+                <li>
+                  <router-link :to="{ name : 'pedidosenviados' }" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-cloud-fog2-fill"></i></span>
+                    <span>Pedidos Enviados</span>
+                  </router-link >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="my-2"><hr class="dropdown-divider bg-light" /></li>
+          <li>
             <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
               ESTADISTICAS
             </div>
