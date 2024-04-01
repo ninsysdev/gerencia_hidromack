@@ -29,7 +29,7 @@
                     <tfoot>
                         <tr class="table-secondary">
                             <td>TOTAL</td>
-                            <td style="text-align: right;"><small><b>{{ totalre }}</b></small></td>
+                            <td style="text-align: right;"><small><b>{{ $filters.currency(totalre) }}</b></small></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -105,13 +105,17 @@
         <div class="modal-body text-center">            
             <div class="text-primary">{{ editaitem.codprod }} - {{ editaitem.descrip }}</div>
             <select v-model="editaitem.preciopedido" class="form-select">
-                <option :value="editaitem.precio">Precio : {{ editaitem.precio }}</option>
-                <option :value="editaitem.precio2">Precio 2 : {{ editaitem.precio2 }}</option>
-                <option :value="editaitem.precio1">Precio 1 : {{ editaitem.precio1 }}</option>
+                <option :value="editaitem.precio">Precio (3) : {{ editaitem.precio }}</option>
+                <option :value="editaitem.precio2">Precio (2) : {{ editaitem.precio2 }}</option>
+                <option :value="editaitem.precio1">Precio (1) : {{ editaitem.precio1 }}</option>
             </select>
             <div class="form-floating mt-2 mb-1">
-            <input v-model="editaitem.cantidad" type="number" content="width=device-width" class="form-control" id="floatingInput" placeholder="CANTIDAD" required>
+            <input v-model="editaitem.cantidad" type="number" min="0" content="width=device-width" class="form-control" id="floatingInput" placeholder="CANTIDAD" required>
             <label for="floatingInput">Cantidad</label>
+            </div>
+            <div class="form-floating mt-2 mb-1">
+            <input v-model="editaitem.preciozero" type="number" min="0"step="0.01" content="width=device-width" class="form-control" id="floatingInput" placeholder="PRECIO 0">
+            <label for="floatingInput">PRECIO 0</label>
             </div>
         </div>
         <div class="modal-footer">
@@ -187,6 +191,7 @@
         editaitem.value.precio2 = producto.Precio2
         editaitem.value.precio = producto.Precio
         editaitem.value.preciopedido = producto.Precio
+        editaitem.value.preciozero = 0
         editaitem.value.existen = producto.Exinten
     })
 
@@ -255,12 +260,14 @@
             swal("El precio no es valido");
         }
         else{
+            let preciofinal = editaitem.value.preciopedido;
+            if(editaitem.value.preciozero>0){ preciofinal = editaitem.value.preciozero }
             if(parseInt(editaitem.value.cantidad) <= parseInt(editaitem.value.existen)){
                 if(totalre.value<=0){
-                    await EditarDocumento.fetchAddItemOneDoc(store.urlPpal,store.headRequest(),idultimoreg.value,editaitem.value.codprod,editaitem.value.preciopedido,editaitem.value.cantidad)
+                    await EditarDocumento.fetchAddItemOneDoc(store.urlPpal,store.headRequest(),idultimoreg.value,editaitem.value.codprod,preciofinal,editaitem.value.cantidad)
                 }
                 else{
-                    await EditarDocumento.fetchAddItemDocumento(store.urlPpal,store.headRequest(),props.codigo,editaitem.value.codprod,editaitem.value.preciopedido,editaitem.value.cantidad)
+                    await EditarDocumento.fetchAddItemDocumento(store.urlPpal,store.headRequest(),props.codigo,editaitem.value.codprod,preciofinal,editaitem.value.cantidad)
                 }
                 await documentoped.fetchConsultarDocumentoGuardado(store.urlPpal,store.headRequest(),props.codigo);
                 await calculatotal();
